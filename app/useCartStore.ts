@@ -1,11 +1,12 @@
 import create from 'zustand';
 
-interface Item {
+export interface Item {
   id: string;
   title: string;
   price: number;
   quantity: number;
   image: string;
+  size?: string | null;  // Optional size property if needed
   // Add other properties as needed
 }
 

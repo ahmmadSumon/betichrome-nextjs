@@ -4,7 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useCartStore from '../useCartStore';
 
-async function getData() {
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+  description: string;
+  image: string;
+}
+
+async function getData(): Promise<Product[]> {
   const res = await fetch('https://fakestoreapi.com/products');
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -12,15 +21,15 @@ async function getData() {
   return res.json();
 }
 
-const Electronics = () => {
-  const [products, setProducts] = useState([]);
+const Electronics: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getData();
         setProducts(data);
-      } catch (error) {
+      } catch (error:any) {
         console.error('Error fetching data:', error.message);
       }
     };
@@ -38,7 +47,7 @@ const Electronics = () => {
               <div className="image-container h-40 relative">
                 <Image
                   src={product.image}
-                  alt=''
+                  alt={product.title}
                   layout="fill"
                   objectFit="cover"
                 />
@@ -48,12 +57,12 @@ const Electronics = () => {
                 <p className="text-gray-900 font-bold py-5">${product.price}</p>
               </div>
               <div className="flex justify-between gap-4 flex-col lg:flex-row">
-                <Link href={{ pathname: "/singleproduct", query: { id: product.id } }} key={`${product.id}-link1`}>
+                <Link href={{ pathname: "/singleproduct", query: { id: product.id.toString() } }} key={`${product.id}-link1`}>
                   <button className="py-1 px-2 rounded bg-green-500 hover:text-white duration-300">
                     View Details
                   </button>
                 </Link>
-                <Link href={{ pathname: "/singleproduct", query: { id: product.id } }} key={`${product.id}-link2`}>
+                <Link href={{ pathname: "/singleproduct", query: { id: product.id.toString() } }} key={`${product.id}-link2`}>
                   <button className="py-1 px-2 rounded bg-green-500 hover:text-white duration-300">
                     ADD To Cart
                   </button>

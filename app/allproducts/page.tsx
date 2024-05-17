@@ -1,10 +1,18 @@
 "use client"
+"use client"
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useCartStore from '../useCartStore';
 
-async function getData() {
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+}
+
+async function getData(): Promise<Product[]> {
   const res = await fetch('https://fakestoreapi.com/products');
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -12,20 +20,38 @@ async function getData() {
   return res.json();
 }
 
-const AllProducts = () => {
-  const [products, setProducts] = useState([]);
+const AllProducts: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getData();
         setProducts(data);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        if (error instanceof Error) {
+          console.error('Error fetching data:', error.message);
+          setError(error.message);
+        } else {
+          console.error('Unknown error fetching data');
+          setError('Unknown error');
+        }
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className='container mx-auto'>
@@ -36,7 +62,7 @@ const AllProducts = () => {
             <div className="image-container h-40 relative">
               <Image
                 src={product.image}
-                alt=''
+                alt={product.title} // Providing alt text for images
                 layout="fill"
                 objectFit="cover"
               />

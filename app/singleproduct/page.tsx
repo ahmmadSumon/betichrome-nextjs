@@ -1,18 +1,26 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from 'react';
-import { getSingleProduct } from '../helper';
-import useCartStore from '../useCartStore';
+import { getSingleProduct, Product } from '../helper';
+import useCartStore, { Item } from '../useCartStore';  // Import Item from useCartStore
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-const SingleProduct = ({ searchParams }) => {
+interface SearchParams {
+  id?: string;
+}
+
+interface SingleProductProps {
+  searchParams: SearchParams;
+}
+
+const SingleProduct: React.FC<SingleProductProps> = ({ searchParams }) => {
   const router = useRouter();
-  const [product, setProduct] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const addItemToCart = useCartStore(state => state.addItem);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const addItemToCart = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -28,28 +36,52 @@ const SingleProduct = ({ searchParams }) => {
   }, [searchParams]);
 
   const handleAddToCart = () => {
-    if ((product.category === `men's clothing` || product.category === `women's clothing`) && !selectedSize) {
+    if (
+      (product?.category === "men's clothing" || product?.category === "women's clothing") &&
+      !selectedSize
+    ) {
       setErrorMessage('Please select a size for this item.');
       return;
     }
 
-    const productToAdd = { ...product, size: selectedSize || null };
-    addItemToCart(productToAdd);
-    setSuccessMessage('Product added to cart.');
+    if (product) {
+      const productToAdd: Item = { 
+        id: product.id.toString(),  // Convert ID to string to match the Item interface
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+        size: selectedSize || null  // Add size if applicable
+      };
+      addItemToCart(productToAdd);
+      setSuccessMessage('Product added to cart.');
+    }
   };
 
   const handleBuyToCart = () => {
-    if ((product.category === `men's clothing` || product.category === `women's clothing`) && !selectedSize) {
+    if (
+      (product?.category === "men's clothing" || product?.category === "women's clothing") &&
+      !selectedSize
+    ) {
       setErrorMessage('Please select a size for this item.');
       return;
     }
 
-    const productToAdd = { ...product, size: selectedSize || null };
-    addItemToCart(productToAdd);
-    setSuccessMessage('Product added to cart.');
+    if (product) {
+      const productToAdd: Item = { 
+        id: product.id.toString(),  // Convert ID to string to match the Item interface
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+        size: selectedSize || null  // Add size if applicable
+      };
+      addItemToCart(productToAdd);
+      setSuccessMessage('Product added to cart.');
 
-    // Navigate to the cart page
-    router.push('/cart');
+      // Navigate to the cart page
+      router.push('/cart');
+    }
   };
 
   if (!product) {
@@ -68,7 +100,7 @@ const SingleProduct = ({ searchParams }) => {
           <p className="text-lg font-bold text-indigo-600 mb-4">
             Price: ${product.price ? product.price.toFixed(2) : 'N/A'}
           </p>
-          {[`men's clothing`, `women's clothing`].includes(product.category) && (
+          {["men's clothing", "women's clothing"].includes(product.category) && (
             <div className="flex space-x-4 mb-4">
               {['S', 'M', 'L', 'XL'].map((size) => (
                 <button
@@ -83,16 +115,14 @@ const SingleProduct = ({ searchParams }) => {
           )}
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           {successMessage && <p className="text-green-500">{successMessage}</p>}
-          {product && (
-            <div className="flex space-x-4">
-              <button className="btn bg-green-500 px-2 py-1 rounded-xl text-white" onClick={handleAddToCart}>
-                Add to Cart
-              </button>
-              <button className="btn bg-violet-500 px-2 py-1 rounded-xl text-white" onClick={handleBuyToCart}>
-                Buy Now
-              </button>
-            </div>
-          )}
+          <div className="flex space-x-4">
+            <button className="btn bg-green-500 px-2 py-1 rounded-xl text-white" onClick={handleAddToCart}>
+              Add to Cart
+            </button>
+            <button className="btn bg-violet-500 px-2 py-1 rounded-xl text-white" onClick={handleBuyToCart}>
+              Buy Now
+            </button>
+          </div>
         </div>
       </div>
     </div>

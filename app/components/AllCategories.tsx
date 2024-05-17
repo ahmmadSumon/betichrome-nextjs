@@ -7,8 +7,12 @@ import img2 from ".././../public/asset/carousel/6.jpg";
 import img3 from ".././../public/asset/carousel/8.jpg";
 import img4 from ".././../public/asset/carousel/6.jpg";
 import img5 from ".././../public/asset/carousel/10.jpg";
-
-const categories = [
+interface Category {
+  name: string;
+  image: StaticImageData;
+  link: string;
+}
+const categories: Category[]  = [
   { name: 'Mens', image: img1, link: '/mens' },
   { name: 'Womens', image: img2, link: '/womens' },
   { name: 'Electronics', image: img3, link: '/electronics' },

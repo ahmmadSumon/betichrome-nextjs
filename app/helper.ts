@@ -1,3 +1,15 @@
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  image: string;
+}
+export interface Item extends Product {
+  size: string | null;
+  quantity: number;
+}
 async function getData() {
  
     const response = await fetch('https://fakestoreapi.com/products');
@@ -8,7 +20,7 @@ async function getData() {
     return  response.json();
   }
   //single 
-  export const getSingleProduct = async (id: number) => {
+  export const getSingleProduct = async (id: number): Promise<Product> => {
     try {
       const items = await getData();
       

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean": "rm -rf .next && rm -rf node_modules && npm cache clean --force",
+    "build": "next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -33,4 +35,5 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
+  
 }
