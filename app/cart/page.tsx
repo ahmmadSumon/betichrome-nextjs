@@ -33,10 +33,10 @@ const Cart: React.FC = () => {
     console.log('Total:', total);
   }, [subtotal, deliveryCharge, total]);
 
-  const handleQuantityChange = (itemId: string, newQuantity: number) => {
-    // Update the quantity of the item in the cart
-    updateItemQuantity(itemId, newQuantity);
-  };
+  // const handleQuantityChange = (itemId: string, newQuantity: number) => {
+  //   // Update the quantity of the item in the cart
+  //   updateItemQuantity(itemId, newQuantity);
+  // };
 
   if (!items || items.length === 0) {
     return (
