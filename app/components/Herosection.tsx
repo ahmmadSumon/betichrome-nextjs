@@ -28,7 +28,7 @@ const Herosection = () => {
           >
             <CarouselContent>
               <CarouselItem><Image src={img1} alt='' /></CarouselItem>
-              <CarouselItem><Image src={img2} alt='' height={300} width={1400} /></CarouselItem>
+              <CarouselItem><Image src={img2} alt=''  /></CarouselItem>
               <CarouselItem><Image src={img3} alt='' /></CarouselItem>
             </CarouselContent>
             <CarouselPrevious />
