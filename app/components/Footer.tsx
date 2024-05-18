@@ -53,23 +53,23 @@ const Footer = () => {
                     <div className="w-full md:w-1/3">
                         <h3 className="text-lg font-bold mb-4">Follow Us</h3>
                         <div className="flex space-x-4">
-                            <Link href="https://facebook.com" passHref>
-                                <span target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="Facebook">
+                            <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" passHref>
+                                <span className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="Facebook">
                                     <FaFacebook />
                                 </span>
                             </Link>
-                            <Link href="https://twitter.com" passHref>
-                                <span target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="Twitter">
+                            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" passHref>
+                                <span className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="Twitter">
                                     <FaTwitter />
                                 </span>
                             </Link>
-                            <Link href="https://instagram.com" passHref>
-                                <span target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="Instagram">
+                            <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" passHref>
+                                <span className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="Instagram">
                                     <FaInstagram />
                                 </span>
                             </Link>
-                            <Link href="https://youtube.com" passHref>
-                                <span target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="YouTube">
+                            <Link href="https://youtube.com" target="_blank" rel="noopener noreferrer" passHref>
+                                <span className="text-2xl hover:text-gray-400 cursor-pointer" aria-label="YouTube">
                                     <FaYoutube />
                                 </span>
                             </Link>
