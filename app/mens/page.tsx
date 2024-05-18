@@ -29,7 +29,7 @@ const Men = () => {
       try {
         const data = await getData();
         setProducts(data);
-      } catch (error) {
+      } catch (error:any) {
         console.error('Error fetching data:', error.message);
       }
     };
