@@ -13,7 +13,7 @@ interface CartItem {
   image: string;
 }
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const items = useCartStore((state) => state.items) as CartItem[];
   const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
   const removeItemFromCart = useCartStore((state) => state.removeItem);
