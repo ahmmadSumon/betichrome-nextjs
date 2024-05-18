@@ -1,4 +1,4 @@
-import Herosection from '@/components/Herosection'
+import Herosection from '../app/components/Herosection'
 import React from 'react'
 import AllCategories from './components/AllCategories'
 import AllProducts from './allproducts/page'
