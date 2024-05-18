@@ -4,8 +4,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useCartStore from '../useCartStore';
 
+// Define the type for cart items
+interface CartItem {
+  id: string;
+  title: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
 const Cart = () => {
-  const items = useCartStore((state) => state.items);
+  const items = useCartStore((state) => state.items) as CartItem[];
   const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
   const removeItemFromCart = useCartStore((state) => state.removeItem);
   const incrementQuantity = useCartStore((state) => state.incrementQuantity);
@@ -23,6 +32,11 @@ const Cart = () => {
     console.log('Delivery Charge:', deliveryCharge);
     console.log('Total:', total);
   }, [subtotal, deliveryCharge, total]);
+
+  const handleQuantityChange = (itemId: string, newQuantity: number) => {
+    // Update the quantity of the item in the cart
+    updateItemQuantity(itemId, newQuantity);
+  };
 
   if (!items || items.length === 0) {
     return (
