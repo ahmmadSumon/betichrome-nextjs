@@ -1,18 +1,20 @@
 "use client"
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import img1 from ".././../public/asset/carousel/3.jpg";
-import img2 from ".././../public/asset/carousel/6.jpg";
-import img3 from ".././../public/asset/carousel/8.jpg";
-import img4 from ".././../public/asset/carousel/6.jpg";
-import img5 from ".././../public/asset/carousel/10.jpg";
+import img1 from "../../public/asset/carousel/3.jpg";
+import img2 from "../../public/asset/carousel/6.jpg";
+import img3 from "../../public/asset/carousel/8.jpg";
+import img4 from "../../public/asset/carousel/6.jpg";
+import img5 from "../../public/asset/carousel/10.jpg";
+
 interface Category {
   name: string;
   image: StaticImageData;
   link: string;
 }
-const categories: Category[]  = [
+
+const categories: Category[] = [
   { name: 'Mens', image: img1, link: '/mens' },
   { name: 'Womens', image: img2, link: '/womens' },
   { name: 'Electronics', image: img3, link: '/electronics' },
@@ -22,23 +24,27 @@ const categories: Category[]  = [
 
 const AllCategories = () => {
   const loopCategories = [...categories, ...categories];
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    containerRef.current.style.animationPlayState = 'paused';
+    if (containerRef.current) {
+      containerRef.current.style.animationPlayState = 'paused';
+    }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    containerRef.current.style.animationPlayState = 'running';
+    if (containerRef.current) {
+      containerRef.current.style.animationPlayState = 'running';
+    }
   };
 
   return (
     <div className="flex justify-center items-center py-7" style={{ whiteSpace: 'nowrap', overflowX: 'hidden', overflowY: 'hidden', position: 'relative', zIndex: 10 }}>
       <div 
-        className="flex top-0 left-0 cursor-pointer " 
+        className="flex top-0 left-0 cursor-pointer" 
         style={{ animation: 'scroll 20s linear infinite', width: '100%' }}
         ref={containerRef}
       >
@@ -51,14 +57,12 @@ const AllCategories = () => {
             onMouseLeave={handleMouseLeave}
           >
             <Link href={category.link}>
-              
-                <div className={`box ${isHovered ? 'hovered' : ''}`}>
-                  <div className="flex justify-center items-center">
-                    <Image src={category.image} alt={category.name} width={250} height={200} />
-                  </div>
-                  <p className="text-center mt-2">{category.name}</p>
+              <div className={`box ${isHovered ? 'hovered' : ''}`}>
+                <div className="flex justify-center items-center">
+                  <Image src={category.image} alt={category.name} width={250} height={200} />
                 </div>
-              
+                <p className="text-center mt-2">{category.name}</p>
+              </div>
             </Link>
           </div>
         ))}
