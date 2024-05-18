@@ -32,17 +32,17 @@ const Footer = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/shop">
+                                <Link href="/about">
                                     <span className="hover:text-gray-400 cursor-pointer">Shop</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contact">
+                                <Link href="/about">
                                     <span className="hover:text-gray-400 cursor-pointer">Contact</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/faq">
+                                <Link href="/about">
                                     <span className="hover:text-gray-400 cursor-pointer">FAQ</span>
                                 </Link>
                             </li>
@@ -79,7 +79,7 @@ const Footer = () => {
                 
                 {/* Footer bottom */}
                 <div className="mt-8 text-center">
-                    <p>&copy; {new Date().getFullYear()} Your E-Commerce. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Betichrome. All rights reserved.</p>
                 </div>
             </div>
         </footer>
