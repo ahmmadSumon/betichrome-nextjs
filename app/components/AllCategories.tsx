@@ -19,7 +19,7 @@ const categories: Category[] = [
   { name: 'Womens', image: img2, link: '/womens' },
   { name: 'Electronics', image: img3, link: '/electronics' },
   { name: 'Jewelery', image: img4, link: '/jewelery' },
-  { name: 'Kids', image: img5, link: '/kids' },
+  { name: 'Kids', image: img5, link: '' },
 ];
 
 const AllCategories = () => {
