@@ -6,7 +6,7 @@ import Women from './womens/page'
 import Men from './mens/page'
 import Jewelery from './jewelery/page'
 import Electronics from './electronics/page'
-
+export const dynamic = 'force-dynamic'
 const page = () => {
   return (
     
