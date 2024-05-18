@@ -13,11 +13,19 @@ interface Product {
 }
 
 async function getData(): Promise<Product[]> {
-  const res = await fetch('https://fakestoreapi.com/products');
-  if (!res.ok) {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  if (!apiUrl) {
+    throw new Error('API URL is not defined in environment variables');
+  }
+
+  const response = await fetch(`${apiUrl}/products`);
+
+  if (!response.ok) {
     throw new Error('Failed to fetch data');
   }
-  return res.json();
+
+  return response.json();
 }
 
 const AllProducts: React.FC = () => {
