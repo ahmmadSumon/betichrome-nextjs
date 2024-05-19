@@ -29,6 +29,7 @@ const SingleProduct: React.FC<SingleProductProps> = ({ searchParams }) => {
         const id = Number(idString);
         const fetchedProduct = await getSingleProduct(id);
         setProduct(fetchedProduct);
+        console.log('Fetched Product:', fetchedProduct);  // Console log the fetched product
       }
     };
 
