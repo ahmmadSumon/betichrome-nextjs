@@ -5,7 +5,7 @@ import { getSingleProduct, Product } from '../helper';
 import useCartStore, { Item } from '../useCartStore';  // Import Item from useCartStore
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-
+export const dynamic = 'force-dynamic'
 interface SearchParams {
   id?: string;
 }
