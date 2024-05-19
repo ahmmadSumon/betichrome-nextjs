@@ -2,10 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { getSingleProduct, Product } from '../helper';
-import useCartStore, { Item } from '../useCartStore';  // Import Item from useCartStore
+import useCartStore, { Item } from '../useCartStore';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-export const dynamic = 'force-dynamic'
+
+export const dynamic = 'force-dynamic';
+
 interface SearchParams {
   id?: string;
 }
@@ -24,12 +26,18 @@ const SingleProduct: React.FC<SingleProductProps> = ({ searchParams }) => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const idString = searchParams?.id;
-      if (idString) {
-        const id = Number(idString);
-        const fetchedProduct = await getSingleProduct(id);
-        setProduct(fetchedProduct);
-        console.log('Fetched Product:', fetchedProduct);  // Console log the fetched product
+      try {
+        const idString = searchParams?.id;
+        if (idString) {
+          const id = Number(idString);
+          const fetchedProduct = await getSingleProduct(id);
+          setProduct(fetchedProduct);
+          console.log('Fetched Product:', fetchedProduct); // Console log the fetched product
+        } else {
+          console.error('Product ID is not provided.');
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
       }
     };
 
@@ -47,12 +55,12 @@ const SingleProduct: React.FC<SingleProductProps> = ({ searchParams }) => {
 
     if (product) {
       const productToAdd: Item = { 
-        id: product.id.toString(),  // Convert ID to string to match the Item interface
+        id: product.id.toString(), 
         title: product.title,
         price: product.price,
         image: product.image,
         quantity: 1,
-        size: selectedSize || null  // Add size if applicable
+        size: selectedSize || null
       };
       addItemToCart(productToAdd);
       setSuccessMessage('Product added to cart.');
@@ -70,17 +78,15 @@ const SingleProduct: React.FC<SingleProductProps> = ({ searchParams }) => {
 
     if (product) {
       const productToAdd: Item = { 
-        id: product.id.toString(),  // Convert ID to string to match the Item interface
+        id: product.id.toString(), 
         title: product.title,
         price: product.price,
         image: product.image,
         quantity: 1,
-        size: selectedSize || null  // Add size if applicable
+        size: selectedSize || null
       };
       addItemToCart(productToAdd);
       setSuccessMessage('Product added to cart.');
-
-      // Navigate to the cart page
       router.push('/cart');
     }
   };
